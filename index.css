@@ -42,9 +42,8 @@ body {
 
 .btn {
     text-align: center;
-    color: white;
-    background-color: grey;
-    border: 1 solid gray;
+    color: rgb(0, 201, 0);
+    background-color: rgb(56, 56, 56);
     border-radius: 2px;
     width: 150px;
     height: 20px;
