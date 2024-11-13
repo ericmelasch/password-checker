@@ -9,7 +9,7 @@ body {
 #container-1 {
     margin-top: 50px;
     padding: 20px 30px;
-    background-color: black;
+    background-color: rgb(32, 32, 32);
     border-radius: 10px;
     z-index: 2;
 
@@ -26,15 +26,15 @@ body {
 }
 
 #green-headline {
-    color: green;
+    color: rgb(0, 201, 0);
 }
 
 #sub-headline {
-    color: gray;
+    color: rgb(134, 134, 134);
 }
 
 #generate-btn {
-    background-color: green;
+    background-color: rgb(0, 201, 0);
     color: white;
     border: 1 solid white;
     border-radius: 4px;
