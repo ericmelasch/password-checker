@@ -11,6 +11,21 @@
     <div id="container-1">
       <h1>Generate a <br><span id="green-headline">random password</br></span></h1>
       <h3 id="sub-headline">Never use an insecure password again.</h3>
+      <form id="range">
+        <label for="Select Password Length">Select Password Length:</label><br>
+        <div id="same-line-range">
+          <input type="range" id="password-length" min="10" max="20" value="15" name="Select Password Length">
+          <p id="password-length-output"></p>
+        </div>
+      </form>
+      <form id="radio">
+        <input type="radio" value="1" name="length" class="length" id="radio-1">
+        <label>Alle Zeichen</label><br>
+        <input type="radio" value="2" name="length" class="length" id="radio-2">
+        <label>Keine Sonderzeichen</label><br>
+        <input type="radio" value="3" name="length" class="length" id="radio-3">
+        <label>Keine Zahlen & Sonderzeichen</label><br>
+      </form>
       <button id="generate-btn" class="text-btn">Generate passwords</button>
       <p id="line"></p>
       <div id="btn-div" class="text-btn">
