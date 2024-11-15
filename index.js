@@ -1,5 +1,3 @@
-const charactersNoSigns = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-const charactersNoNumbers = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 const characters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9","~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","[","}","]",",","|",":",";","<",">",".","?",
 "/"];
 // Dieser Abschnitt erzeugt 2x 15 Zeichen Passwörter auf Knopfdruck, randomisiert aus vorgegebenen Array
@@ -15,10 +13,9 @@ function passwordOutput() {
     button2.textContent = passwordGenerator()
 }
 
-
 function passwordGenerator() {
     let randomPassword = "";
-    for (let i = 0; i < passwordLength; i++) {
+    for (let i = 0; i < passwordLengthValue; i++) {
        randomPassword += arraySelect.at(Math.floor(Math.random() * arraySelect.length));
     } 
     return randomPassword
@@ -30,14 +27,18 @@ function passwordGenerator() {
 let passwordLength = document.getElementById("password-length")
 let passwordLengthOutput = document.getElementById("password-length-output")
 
+// passwordLength muss ersetzt werden durch eigene variable z.B. passwordLengthValue sonst funktioniert slider bzw. berechnung erst nach erstem slide
+let passwordLengthValue = passwordLength.value
+
+//oninput wird direkt ausgeführt, alternative onchange nicht
 passwordLengthOutput.textContent = passwordLength.value
 passwordLength.oninput = function() {
-    passwordLength = this.value;
+    passwordLengthValue = this.value;
     passwordLengthOutput.textContent = this.value;
 
 }
 
-//
+// ALT ->
 // Dieser Abschnitt sorgt dafür das Passwort länge per Slider angepasst werden kann
 // Vorher : for (let i = 0; i < 15; i++) { ... }
 // gelöst durch -> passwordLength = this.value;
@@ -46,24 +47,43 @@ passwordLength.oninput = function() {
 
 // Dieser Abschnitt sorgt dafür das durch radio Button entschieden wird welcher Teil des Arrays zur Password generierung genutzt wird
 
-let radio1 = document.getElementById("radio-1").value
-let radio2 = document.getElementById("radio-2").value
-let radio3 = document.getElementById("radio-3").value
+// ALT / Eigenes ->
+//let radio1 = document.getElementById("radio-1").value
+//let radio2 = document.getElementById("radio-2").value
+//let radio3 = document.getElementById("radio-3").value
 
 
 
-let radioSelect = document.getElementsByClassName("radio")
-radioSelect.oninput = function() {
-    radioSelect = this.value;
-}
+//let radioSelect = document.getElementById("radio")
+//radioSelect.oninput = function() {
+    //radioSelect = this.value;
+//} <- ALT
 
-let arraySelect = []
-function changeSigns() {
-    if ( radioSelect === radio2) {
-        arraySelect = charactersNoSigns
-    } else if (radioSelect === radio3) {
-        arraySelect = charactersNoNumbers
-    } else {
-        arraySelect = characters
+// NEU ->
+// querySelectorAll wählt alle inputs mit name = length, perfekt für radio
+let radioButtons = document.querySelectorAll('input[name="length"]');
+
+let radioSelect = null;
+
+// Event Listener für alle Radio-Buttons hinzufügen, radioSelect ändern + funktion ausführen bei jeder veränderung
+radioButtons.forEach(radio => {
+    radio.addEventListener("change", function () {
+        radioSelect = this.value;
+        changeArray()
+    });
+});
+// <-
+
+// arraySelect darf nicht [] sein, sonst erscheint bei erster Berechnung undefined
+let arraySelect = characters
+
+//.slice(anfang, ende +1) -> erschafft neues Array mit ausgewählten Elementen; 
+function changeArray() {
+        if ( radioSelect === "1") {
+            arraySelect = characters
+        } else if (radioSelect === "2") {
+            arraySelect = characters.slice(0, 61)
+        } else {
+            arraySelect = characters.slice(0, 51)
+        }
     }
-}
